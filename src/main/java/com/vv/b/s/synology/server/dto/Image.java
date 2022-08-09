@@ -16,7 +16,9 @@ public class Image {
 
     private String cacheKey;
 
-    private byte[] thumbnail;
+    private String thumbnail;
+
+    private String address;
 
     private List<ImageSize> availableSizes;
 }

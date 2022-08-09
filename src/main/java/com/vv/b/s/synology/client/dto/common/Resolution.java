@@ -1,4 +1,4 @@
-package com.vv.b.s.synology.client.dto;
+package com.vv.b.s.synology.client.dto.common;
 
 import lombok.Getter;
 import lombok.Setter;

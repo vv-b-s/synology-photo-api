@@ -7,13 +7,16 @@ import com.vv.b.s.synology.client.dto.album.AlbumItem;
 import com.vv.b.s.synology.client.dto.album.Exif;
 import com.vv.b.s.synology.client.params.ImageSize;
 import com.vv.b.s.synology.client.params.Order;
+import com.vv.b.s.synology.server.dto.FetchedImageData;
 import com.vv.b.s.synology.session.UserSession;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 
 import static com.vv.b.s.synology.client.api.Api.FETCH_ALBUM;
 import static com.vv.b.s.synology.client.api.Api.FETCH_EXIF;
@@ -64,7 +67,12 @@ public class PhotosResourceFacade {
                 FETCH_IMAGE.getApi(), FETCH_IMAGE.getMethod(), FETCH_IMAGE.getVersion(), passphrase,
                 userSession.getSynologyCookie());
 
-        return new FetchedImageData((InputStream) response.getEntity(), albumItem.getAdditional().getExif(),
+        String image = null;
+        try(var is = (InputStream) response.getEntity()) {
+            image = Base64.getEncoder().encodeToString(is.readAllBytes());
+        } catch (IOException e) {}
+
+        return new FetchedImageData(image, albumItem.getAdditional().getExif(),
                 response.getHeaderString("Content-Type"), response.getHeaderString("Content-Disposition"));
     }
 

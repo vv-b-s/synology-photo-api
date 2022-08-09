@@ -1,6 +1,7 @@
 package com.vv.b.s.synology.client.dto.album;
 
-import com.vv.b.s.synology.client.dto.Resolution;
+import com.vv.b.s.synology.client.dto.common.Address;
+import com.vv.b.s.synology.client.dto.common.Resolution;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,4 +22,6 @@ public class AdditionalItemData {
     private Long providerUserId;
 
     private Exif exif;
+
+    private Address address;
 }
