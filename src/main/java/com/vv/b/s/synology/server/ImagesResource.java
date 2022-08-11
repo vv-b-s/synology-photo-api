@@ -20,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequestScoped
@@ -37,10 +38,11 @@ public class ImagesResource {
     public List<Image> getImages(@QueryParam("start") @DefaultValue("0") int start,
                                  @QueryParam("end") @DefaultValue("20") int end,
                                  @QueryParam("order") @DefaultValue("ASCENDING") Order order) {
-        return photosResource.listAlbumItems(start, end, order)
-                .getData().getList().stream()
-                .map(imageMapper::mapToImage)
-                .collect(Collectors.toList());
+        return Optional.ofNullable(photosResource.listAlbumItems(start, end, order).getData())
+                .map(data -> data.getList().stream()
+                        .map(imageMapper::mapToImage)
+                        .collect(Collectors.toList()))
+                .orElse(null);
     }
 
     @POST
