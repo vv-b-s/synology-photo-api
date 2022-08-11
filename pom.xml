@@ -6,8 +6,6 @@
   <artifactId>synology</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <properties>
-    <version.mapstruct>1.5.2.Final</version.mapstruct>
-    <version.lombok>1.18.24</version.lombok>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,6 +15,8 @@
     <quarkus.platform.version>2.11.1.Final</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+    <version.lombok>1.18.24</version.lombok>
+    <version.mapstruct>1.5.2.Final</version.mapstruct>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -60,6 +60,10 @@
       <groupId>org.mapstruct</groupId>
       <artifactId>mapstruct</artifactId>
       <version>${version.mapstruct}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-container-image-docker</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
