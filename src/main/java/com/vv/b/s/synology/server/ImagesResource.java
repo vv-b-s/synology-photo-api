@@ -6,6 +6,8 @@ import com.vv.b.s.synology.server.dto.FetchedImageData;
 import com.vv.b.s.synology.server.dto.Image;
 import com.vv.b.s.synology.server.dto.ImageMapper;
 import com.vv.b.s.synology.server.dto.ImageRequest;
+import io.smallrye.common.annotation.Blocking;
+import io.smallrye.common.annotation.NonBlocking;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -34,6 +36,7 @@ public class ImagesResource {
     ImageMapper imageMapper;
 
     @GET
+    @Blocking
     @Produces(MediaType.APPLICATION_JSON)
     public List<Image> getImages(@QueryParam("start") @DefaultValue("0") int start,
                                  @QueryParam("end") @DefaultValue("20") int end,
