@@ -51,14 +51,6 @@ If you want to learn more about building native executables, please consult http
 
 - RESTEasy Classic JSON-B ([guide](https://quarkus.io/guides/rest-json)): JSON-B serialization support for RESTEasy Classic
 
-## Provided Code
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
-
 # Push natively to dockerhub
 ```shell
 mvn clean package -Pnative -DskipTests "-Dquarkus.container-image.push=true"

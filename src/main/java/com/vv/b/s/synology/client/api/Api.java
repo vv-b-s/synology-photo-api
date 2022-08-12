@@ -7,6 +7,9 @@ import lombok.Getter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class serves as a dictionary to easily access API actions with constant parameters
+ */
 @Getter
 @AllArgsConstructor
 public enum Api {
