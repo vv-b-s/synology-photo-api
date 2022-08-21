@@ -44,6 +44,7 @@ public class ImagesResource {
         return Optional.ofNullable(photosResource.listAlbumItems(start, end, order).getData())
                 .map(data -> data.getList().stream()
                         .map(imageMapper::mapToImage)
+                        .filter(i -> i.getThumbnail() != null) // Images without thumbnails are not ready to be shown
                         .collect(Collectors.toList()))
                 .orElse(null);
     }

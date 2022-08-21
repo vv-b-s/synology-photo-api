@@ -5,6 +5,7 @@ import com.vv.b.s.synology.client.dto.ResponsePayloadDTO;
 import com.vv.b.s.synology.client.dto.album.Album;
 import com.vv.b.s.synology.client.dto.album.AlbumItem;
 import com.vv.b.s.synology.client.dto.album.Exif;
+import com.vv.b.s.synology.client.exception.SynologyResponseException;
 import com.vv.b.s.synology.client.params.ImageSize;
 import com.vv.b.s.synology.client.params.Order;
 import com.vv.b.s.synology.server.dto.FetchedImageData;
@@ -14,6 +15,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
@@ -62,19 +64,20 @@ public class PhotosResourceFacade {
     }
 
     public FetchedImageData getImage(AlbumItem albumItem, ImageSize size) {
-        var response = photosResource.fetchImage(albumItem.getFileName(), albumItem.getId(),
-                albumItem.getAdditional().getThumbnail().getCacheKey(), "unit", size.toString(), passphrase,
-                FETCH_IMAGE.getApi(), FETCH_IMAGE.getMethod(), FETCH_IMAGE.getVersion(), passphrase,
-                userSession.getSynologyCookie());
+        try {
+            var response = photosResource.fetchImage(albumItem.getFileName(), albumItem.getId(),
+                    albumItem.getAdditional().getThumbnail().getCacheKey(), "unit", size.toString(), passphrase,
+                    FETCH_IMAGE.getApi(), FETCH_IMAGE.getMethod(), FETCH_IMAGE.getVersion(), passphrase,
+                    userSession.getSynologyCookie());
+            String image = null;
+            try(var is = (InputStream) response.getEntity()) {
+                image = Base64.getEncoder().encodeToString(is.readAllBytes());
+            } catch (IOException e) {}
 
-        String image = null;
-        try(var is = (InputStream) response.getEntity()) {
-            image = Base64.getEncoder().encodeToString(is.readAllBytes());
-        } catch (IOException e) {}
-
-        return new FetchedImageData(image, albumItem.getAdditional().getExif(),
-                response.getHeaderString("Content-Type"), response.getHeaderString("Content-Disposition"));
+            return new FetchedImageData(image, albumItem.getAdditional().getExif(),
+                    response.getHeaderString("Content-Type"), response.getHeaderString("Content-Disposition"));
+        } catch (SynologyResponseException e) {
+            return null;
+        }
     }
-
-
 }

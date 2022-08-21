@@ -14,6 +14,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "cdi", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -77,6 +78,8 @@ public abstract class ImageMapper {
     }
 
     String mapThumbnail(AlbumItem albumItem) {
-        return photosFacade.getImage(albumItem, ImageSize.m).getImage();
+        return Optional.ofNullable(photosFacade.getImage(albumItem, ImageSize.m))
+                .map(FetchedImageData::getImage)
+                .orElse(null);
     }
 }

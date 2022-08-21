@@ -3,6 +3,9 @@ package com.vv.b.s.synology.client;
 import com.vv.b.s.synology.client.dto.ApiRequestForm;
 import com.vv.b.s.synology.client.dto.ResponsePayloadDTO;
 import com.vv.b.s.synology.client.dto.album.Album;
+import com.vv.b.s.synology.client.exception.SynologyResponseException;
+import com.vv.b.s.synology.client.exception.SynologyResponseExceptionMapper;
+import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.jboss.resteasy.annotations.Form;
 
@@ -19,6 +22,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/mo/sharing")
 @RegisterRestClient(configKey = "photos-api")
+@RegisterProvider(SynologyResponseExceptionMapper.class)
 public interface PhotosResource {
 
     @GET
@@ -39,6 +43,6 @@ public interface PhotosResource {
                            @QueryParam("size") String size, @QueryParam("passphrase") String passphrase,
                            @QueryParam("api") String api, @QueryParam("method") String method,
                            @QueryParam("version") int version, @QueryParam("_sharing_id") String sharingId,
-                           @CookieParam("sharing_sid") String sharingSid);
+                           @CookieParam("sharing_sid") String sharingSid) throws SynologyResponseException;
 
 }
