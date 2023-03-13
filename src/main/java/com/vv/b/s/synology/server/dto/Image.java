@@ -15,7 +15,7 @@ public class Image {
     private String fileName;
 
     private String cacheKey;
-
+    private String dateTaken;
     private String thumbnail;
 
     private String address;

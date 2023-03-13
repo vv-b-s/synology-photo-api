@@ -12,9 +12,14 @@ import org.mapstruct.Named;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import javax.inject.Inject;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "cdi", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -24,20 +29,30 @@ public abstract class ImageMapper {
     private static final String MAP_AVAILABLE_SIZES = "mapAvailableSizes";
     private static final String MAP_IMAGE_EXIF = "mapImageExif";
     private static final String MAP_ADDRESS = "mapAddress";
+    private static final String MAP_DATE_TAKEN = "mapDateTaken";
 
     @Inject
     PhotosResourceFacade photosFacade;
 
     @Mapping(target = "cacheKey", source = "additional.thumbnail.cacheKey")
     @Mapping(target = "thumbnail", expression = "java(mapThumbnail(albumItem))")
-    @Mapping(target = "availableSizes", source = "additional.thumbnail", qualifiedByName = MAP_AVAILABLE_SIZES)
+    @Mapping(target = "dateTaken", source = "time", qualifiedByName = MAP_DATE_TAKEN)
     @Mapping(target = "address", source = "additional.address", qualifiedByName = MAP_ADDRESS)
+    @Mapping(target = "availableSizes", source = "additional.thumbnail", qualifiedByName = MAP_AVAILABLE_SIZES)
     public abstract Image mapToImage(AlbumItem albumItem);
 
     @Mapping(target = "additional.thumbnail.cacheKey", source = "cacheKey")
     @Mapping(target = "additional.exif", source = "id", qualifiedByName = MAP_IMAGE_EXIF)
     public abstract AlbumItem mapFromImageRequest(ImageRequest imageRequest);
 
+
+    @Named(MAP_DATE_TAKEN)
+    String mapDateTaken(Long time) {
+        if (time != null) {
+            return LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.UTC)
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } else return null;
+    }
 
     @Named(MAP_AVAILABLE_SIZES)
     List<ImageSize> mapAvailableSizes(Thumbnail thumbnail) {

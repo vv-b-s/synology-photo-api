@@ -16,6 +16,7 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -30,8 +31,9 @@ public interface PhotosResource {
     Response getCookie(@PathParam("passphrase") String passphrase);
 
     @POST
-    @Path("/webapi/entry.cgi/SYNO.Foto.Browse.Item")
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Path("/webapi/entry.cgi/SYNO.Foto.Browse.Item")
     ResponsePayloadDTO<Album> listAlbumItems(@CookieParam("sharing_sid") String sharingSid,
                                              @HeaderParam("X-SYNO-SHARING") String passphrase,
                                              @Form ApiRequestForm requestForm);

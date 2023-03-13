@@ -36,7 +36,6 @@ public class ImagesResource {
     ImageMapper imageMapper;
 
     @GET
-    @Blocking
     @Produces(MediaType.APPLICATION_JSON)
     public List<Image> getImages(@QueryParam("start") @DefaultValue("0") int start,
                                  @QueryParam("end") @DefaultValue("20") int end,

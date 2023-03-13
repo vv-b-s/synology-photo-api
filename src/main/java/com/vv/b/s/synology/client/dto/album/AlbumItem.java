@@ -15,6 +15,7 @@ public class AlbumItem {
 
     @JsonbProperty("filesize")
     private String fileSize;
+
     private Long time;
 
     @JsonbProperty("indexed_time")

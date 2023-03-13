@@ -40,8 +40,9 @@ public class PhotosResourceFacade {
     String passphrase;
 
     public String getCookie() {
-        var response = photosResource.getCookie(passphrase);
-        return response.getCookies().get(SYNOLOGY_COOKIE_NAME).getValue();
+        try(var response = photosResource.getCookie(passphrase)) {
+            return response.getCookies().get(SYNOLOGY_COOKIE_NAME).getValue();
+        }
     }
 
     public Exif getImageExif(long imageId) {
@@ -64,11 +65,10 @@ public class PhotosResourceFacade {
     }
 
     public FetchedImageData getImage(AlbumItem albumItem, ImageSize size) {
-        try {
-            var response = photosResource.fetchImage(albumItem.getFileName(), albumItem.getId(),
-                    albumItem.getAdditional().getThumbnail().getCacheKey(), "unit", size.toString(), passphrase,
-                    FETCH_IMAGE.getApi(), FETCH_IMAGE.getMethod(), FETCH_IMAGE.getVersion(), passphrase,
-                    userSession.getSynologyCookie());
+        try(var response = photosResource.fetchImage(albumItem.getFileName(), albumItem.getId(),
+                albumItem.getAdditional().getThumbnail().getCacheKey(), "unit", size.toString(), passphrase,
+                FETCH_IMAGE.getApi(), FETCH_IMAGE.getMethod(), FETCH_IMAGE.getVersion(), passphrase,
+                userSession.getSynologyCookie())) {
             String image = null;
             try(var is = (InputStream) response.getEntity()) {
                 image = Base64.getEncoder().encodeToString(is.readAllBytes());
