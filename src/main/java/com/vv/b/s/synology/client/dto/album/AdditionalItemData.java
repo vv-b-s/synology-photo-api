@@ -12,16 +12,14 @@ import javax.json.bind.annotation.JsonbProperty;
 public class AdditionalItemData {
     private Resolution resolution;
     private Integer orientation;
+    private Thumbnail thumbnail;
+    private Exif exif;
+    private Address address;
+    private String description;
 
     @JsonbProperty("orientation_original")
     private Integer orientationOriginal;
 
-    private Thumbnail thumbnail;
-
     @JsonbProperty("provider_user_id")
     private Long providerUserId;
-
-    private Exif exif;
-
-    private Address address;
 }

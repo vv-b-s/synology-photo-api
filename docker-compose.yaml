@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  synology-photos-api:
+    container_name: synology-photos-api
+    image: valentinv97/photography:<version>
+    ports:
+      - "8080:8080/tcp"
+    environment:
+      TZ: 'EET'
+      SYNOLOGY_PASSPHRASE: t8n7dX0mr
+    restart: unless-stopped

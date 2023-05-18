@@ -39,6 +39,7 @@ public abstract class ImageMapper {
     @Mapping(target = "dateTaken", source = "time", qualifiedByName = MAP_DATE_TAKEN)
     @Mapping(target = "address", source = "additional.address", qualifiedByName = MAP_ADDRESS)
     @Mapping(target = "availableSizes", source = "additional.thumbnail", qualifiedByName = MAP_AVAILABLE_SIZES)
+    @Mapping(target = "description", source = "additional.description")
     public abstract Image mapToImage(AlbumItem albumItem);
 
     @Mapping(target = "additional.thumbnail.cacheKey", source = "cacheKey")

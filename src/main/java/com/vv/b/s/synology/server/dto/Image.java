@@ -19,6 +19,7 @@ public class Image {
     private String thumbnail;
 
     private String address;
+    private String description;
 
     private List<ImageSize> availableSizes;
 }
