@@ -40,10 +40,12 @@ public abstract class ImageMapper {
     @Mapping(target = "address", source = "additional.address", qualifiedByName = MAP_ADDRESS)
     @Mapping(target = "availableSizes", source = "additional.thumbnail", qualifiedByName = MAP_AVAILABLE_SIZES)
     @Mapping(target = "description", source = "additional.description")
+    @Mapping(target = "thumbnailUnitId", source = "additional.thumbnail.unitId")
     public abstract Image mapToImage(AlbumItem albumItem);
 
     @Mapping(target = "additional.thumbnail.cacheKey", source = "cacheKey")
     @Mapping(target = "additional.exif", source = "id", qualifiedByName = MAP_IMAGE_EXIF)
+    @Mapping(target = "additional.thumbnail.unitId", source = "thumbnailUnitId")
     public abstract AlbumItem mapFromImageRequest(ImageRequest imageRequest);
 
 

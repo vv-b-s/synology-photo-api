@@ -15,6 +15,9 @@ public class ImageRequest {
     private String id;
 
     @NotBlank
+    private String thumbnailUnitId;
+
+    @NotBlank
     private String fileName;
 
     @NotBlank

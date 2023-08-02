@@ -39,8 +39,8 @@ public interface PhotosResource {
                                              @Form ApiRequestForm requestForm);
 
     @GET
-    @Path("/webapi/entry.cgi/{fileName}")
-    Response fetchImage(@PathParam("fileName") String fileName, @QueryParam("id") long id,
+    @Path("/webapi/entry.cgi")
+    Response  fetchImage(@QueryParam("id") long id,
                            @QueryParam("cache_key") String cacheKey, @QueryParam("type") String type,
                            @QueryParam("size") String size, @QueryParam("passphrase") String passphrase,
                            @QueryParam("api") String api, @QueryParam("method") String method,

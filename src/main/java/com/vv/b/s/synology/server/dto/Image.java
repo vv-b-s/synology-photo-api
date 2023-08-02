@@ -11,7 +11,7 @@ import java.util.List;
 public class Image {
 
     private String id;
-
+    private String thumbnailUnitId;
     private String fileName;
 
     private String cacheKey;
