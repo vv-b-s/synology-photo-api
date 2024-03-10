@@ -2,7 +2,7 @@ package com.vv.b.s.synology.client.exception;
 
 import lombok.Getter;
 
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 
 public class SynologyResponseException extends RuntimeException {
 

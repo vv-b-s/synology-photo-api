@@ -3,7 +3,7 @@ package com.vv.b.s.synology.client.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.ws.rs.FormParam;
+import jakarta.ws.rs.FormParam;
 
 @Getter
 @AllArgsConstructor

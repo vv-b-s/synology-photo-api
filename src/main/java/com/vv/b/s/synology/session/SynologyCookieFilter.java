@@ -2,14 +2,14 @@ package com.vv.b.s.synology.session;
 
 import com.vv.b.s.synology.client.PhotosResourceFacade;
 
-import javax.inject.Inject;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.NewCookie;
-import javax.ws.rs.ext.Provider;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerRequestFilter;
+import jakarta.ws.rs.container.ContainerResponseContext;
+import jakarta.ws.rs.container.ContainerResponseFilter;
+import jakarta.ws.rs.core.Cookie;
+import jakarta.ws.rs.core.NewCookie;
+import jakarta.ws.rs.ext.Provider;
 import java.util.Optional;
 
 import static com.vv.b.s.synology.session.UserSession.SYNOLOGY_COOKIE_NAME;

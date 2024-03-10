@@ -3,7 +3,7 @@ package com.vv.b.s.synology.client.dto.album;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.json.bind.annotation.JsonbProperty;
+import jakarta.json.bind.annotation.JsonbProperty;
 
 @Getter
 @Setter

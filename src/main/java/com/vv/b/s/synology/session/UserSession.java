@@ -3,7 +3,7 @@ package com.vv.b.s.synology.session;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 
 @Setter
 @Getter
